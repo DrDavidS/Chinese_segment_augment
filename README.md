@@ -18,6 +18,7 @@ python3利用互信息和左右信息熵的中文分词新词发现
 
 * 修改了旧代码在windows上的编码报错问题。
 * 修改了旧代码执行缓慢的问题，采用字典代替列表。
+* 新增结果保存，默认保存得分前100的新词。
 
 ## 使用配置
 
@@ -28,10 +29,10 @@ python3利用互信息和左右信息熵的中文分词新词发现
 
     from model import TrieNode
 
-## 得到 TOP5 得分的新词
+## 得到 TOP N 得分的新词
 
-    # result里面存储的是所有新词和其得分，add_word里面是top5
-    result, add_word = root.wordFind(5)
+    # result里面存储的是所有新词和其得分，add_word里面是top100
+    result, add_word = root.wordFind(100)
 
 > 运行： python demo_run.py  体验程序的快感
 
