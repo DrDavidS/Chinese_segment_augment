@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-# @Time    : 2018/05/26 下午5:13
-# @Update  : 2018/09/28 上午10:30
-# @Author  : zhanzecheng/片刻
+# @Time    : 2019/11/21
+# @Author  : zhanzecheng/片刻/DrDavidS
 # @File    : demo.py.py
 # @Software: PyCharm
 """

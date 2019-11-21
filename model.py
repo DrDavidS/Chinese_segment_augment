@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-# @Time    : 2018/5/26 下午5:03
-# @Author  : zhanzecheng
+# @Time    : 2019/11/21
+# @Author  : zhanzecheng/DrDavidS
 # @File    : model.py
 # @Software: PyCharm
 """
