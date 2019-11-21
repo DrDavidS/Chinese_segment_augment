@@ -77,7 +77,7 @@ if __name__ == "__main__":
     # 保存新增词语
     if os.path.exists("./result_new_words/new_words.txt"):
         print("已经存在文件，删除")
-        os.remove("new_words.txt")
+        os.remove("./result_new_words/new_words.txt")
     mylist = new_words
 
     with open("./result_new_words/new_words.txt", 'w', encoding='utf-8') as f:
