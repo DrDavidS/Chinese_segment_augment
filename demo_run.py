@@ -7,7 +7,9 @@
 # @Software: PyCharm
 """
 import os
+
 import jieba
+
 from model import TrieNode
 from utils import get_stopwords, load_dictionary, generate_ngram, save_model, load_model
 from config import basedir
@@ -15,15 +17,17 @@ from config import basedir
 
 def load_data(filename, stopwords):
     """
+    按行读取信息
 
     :param filename:
     :param stopwords:
     :return: 二维数组,[[句子1分词list], [句子2分词list],...,[句子n分词list]]
     """
     data = []
-    with open(filename, 'r') as f:
+    with open(filename, 'r',  encoding='utf-8') as f:
         for line in f:
-            word_list = [x for x in jieba.cut(line.strip(), cut_all=False) if x not in stopwords]
+            word_list = [x for x in jieba.cut(
+                line.strip(), cut_all=False) if x not in stopwords]
             data.append(word_list)
     return data
 
@@ -56,23 +60,40 @@ if __name__ == "__main__":
     # 将新的文章插入到Root中
     load_data_2_root(data)
 
-    # 定义取TOP5个
-    topN = 5
+    # 新增词语
+    new_words = []
+    # 定义取topN个
+    topN = 100
     result, add_word = root.find_word(topN)
     # 如果想要调试和选择其他的阈值，可以print result来调整
     # print("\n----\n", result)
     print("\n----\n", '增加了 %d 个新词, 词语和得分分别为: \n' % len(add_word))
     print('#############################')
     for word, score in add_word.items():
-        print(word + ' ---->  ', score)
+        print(word + ' ----> ', score)
+        new_words.append(word)
     print('#############################')
 
+    # 保存新增词语
+    if os.path.exists("./result_new_words/new_words.txt"):
+        print("已经存在文件，删除")
+        os.remove("new_words.txt")
+    mylist = new_words
+
+    with open("./result_new_words/new_words.txt", 'w', encoding='utf-8') as f:
+        for var in mylist:
+            f.writelines(var)
+            f.write('\n')
+    f.close()
+
     # 前后效果对比
-    test_sentence = '蔡英文在昨天应民进党当局的邀请，准备和陈时中一道前往世界卫生大会，和谈有关九二共识问题'
+    test_sentence = '小微企业没有达到要交税的标准，免征的增值税是记入营业外收入交企税吗'
     print('添加前：')
-    print("".join([(x + '/ ') for x in jieba.cut(test_sentence, cut_all=False) if x not in stopwords]))
+    print("".join([(x + '/ ') for x in jieba.cut(test_sentence,
+                                                 cut_all=False) if x not in stopwords]))
 
     for word in add_word.keys():
         jieba.add_word(word)
     print("添加后：")
-    print("".join([(x + '/ ') for x in jieba.cut(test_sentence, cut_all=False) if x not in stopwords]))
+    print("".join([(x + '/ ') for x in jieba.cut(test_sentence,
+                                                 cut_all=False) if x not in stopwords]))

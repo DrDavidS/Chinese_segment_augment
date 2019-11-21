@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 # @Time    : 2018/5/26 下午5:20
-# @Author  : zhanzecheng
+# @Author  : zhanzecheng/DrDavidS
 # @File    : utils.py
 # @Software: PyCharm
 """
@@ -9,12 +9,13 @@ import pickle
 
 
 def get_stopwords():
-    with open('data/stopword.txt', 'r') as f:
+    with open('data/stopword.txt', 'r', encoding='utf-8') as f:
         stopword = [line.strip() for line in f]
     return set(stopword)
 
 
 def generate_ngram(input_list, n):
+    """排列组合"""
     result = []
     for i in range(1, n+1):
         result.extend(zip(*[input_list[j:] for j in range(i)]))
@@ -29,14 +30,14 @@ def load_dictionary(filename):
     """
     word_freq = {}
     print('------> 加载外部词集')
-    with open(filename, 'r') as f:
+    with open(filename, 'r',  encoding='utf-8') as f:
         for line in f:
             try:
                 line_list = line.strip().split(' ')
                 # 规定最少词频
                 if int(line_list[1]) > 2:
                     word_freq[line_list[0]] = line_list[1]
-            except IndexError as e:
+            except IndexError:
                 print(line)
                 continue
     return word_freq
